@@ -7,7 +7,7 @@ describe('./reducer', () => {
         expect(typeof reducer).toBe('function');
     });
 
-    test('getPollingState return value should be initial state in case', () => {
+    test('getPollingState return value should be initial state in case state is empty', () => {
         expect(getPollingState({})).toBe(initialPollingState)
     });
 
@@ -40,28 +40,6 @@ describe('./reducer', () => {
         expect(reducer({}, stopAction)).toEqual({
             REDUX_POLLING: {
                 isActive: false
-            }
-        });
-    });
-
-    it('should handle add entry action', () => {
-        const startAction = {
-            type: actionTypes.start,
-            meta: { pollingName: 'REDUX_POLLING' }
-        };
-
-        const addEntryAction = {
-            type: actionTypes.addEntry,
-            meta: { pollingName: 'REDUX_POLLING', historyLimit: 1 }
-        };
-        
-        expect(reducer(reducer({}, startAction), addEntryAction)).toEqual({
-            REDUX_POLLING: {
-                isActive: false,
-                history: [],
-                isActive: true,
-                lastEntry: undefined,
-                requestPayload: undefined
             }
         });
     });
